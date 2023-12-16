@@ -95,7 +95,7 @@ class DLP_Hook:
         if d["status"] == "downloading":
             self.dlp.downloads[self.id] = {}
             self.dlp.downloads[self.id]["status"] = "downloading"
-            self.dlp.downloads[self.id]["filename"] = d["info_dict"]["filename"].split("/")[1]
+            self.dlp.downloads[self.id]["filename"] = d["info_dict"]["filename"].split("/")[-1]
             try:
                 self.dlp.downloads[self.id]["speed"] = d["speed"]
             except KeyError as e:
