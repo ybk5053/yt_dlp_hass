@@ -1,6 +1,6 @@
-# Integration to use Yt-DLP within Home Assistant
+# Integration to use YT-DLP within Home Assistant
 
-Integration can be used with yt_dlp-card to see download status
+Integration can be used with [`yt_dlp-card`](https://github.com/ybk5053/yt_dlp-card) to see download status
 
 ## Installation
 
@@ -26,4 +26,4 @@ Clone or download this repository and copy the "yt_dlp" directory to your "custo
 3. Additional options can be passed into the data in Yaml Mode
 4. See [`yt_dlp/YoutubeDL.py`](yt_dlp/YoutubeDL.py#L183) or `help(yt_dlp.YoutubeDL)` in a Python shell for list of options
 
-### Via Yt_DLP-Card
+### Via [`yt_dlp-card`](https://github.com/ybk5053/yt_dlp-card)

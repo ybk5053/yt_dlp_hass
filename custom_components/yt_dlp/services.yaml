@@ -1,7 +1,9 @@
 download:
+  name: Download File
   description: Download a video using YT-DLP
   fields:
     url:
+      name: URL
       description: The URL of the video to download
       example: https://www.youtube.com/watch?v=1234567890
       required: true
