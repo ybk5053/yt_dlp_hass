@@ -65,7 +65,7 @@ class YTDLP:
                 }
             except KeyError as e:
                 _LOGGER.info(e)
-        self.hass.states.set("%s.downloading" % DOMAIN, len(self.downloads), attr)
+        self.hass.states.set("%s.downloading" % DOMAIN, len(attr), attr)
 
 
 class DLP_Hook:
