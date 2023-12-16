@@ -1,0 +1,11 @@
+{
+    "domain": "yt_dlp",
+    "name": "Youtube-DLP",
+    "codeowners": ["@ybk5053"],
+    "config_flow": true,
+    "integration_type": "service",
+    "requirements": ["yt-dlp==2023.11.16"],
+    "version": "0.1.0",
+    "documentation": "https://github.com/ybk5053/yt_dlp_hass",
+    "issue_tracker": "https://github.com/ybk5053/yt_dlp_hass/issues"
+}
