@@ -10,20 +10,29 @@ Clone or download this repository and copy the "yt_dlp" directory to your "custo
 
 ```<config directory>/custom_components/yt_dlp/...```
 
+## HACS
+
+- Add Custom Repositories
+
+```text
+Repository: https://github.com/ybk5053/yt_dlp_hass
+Category: Integration
+```
+
 ## Configuration
 
 ### Configuration via the "Configuration -> Integrations" section of the Home Assistant UI
 
-1. Search for the integration labeled "Youtube DLP" and select it.  
-2. Enter the path for the download directory.
+- Search for the integration labeled "Youtube DLP" and select it.  
+- Enter the path for the download directory.
 
 ## Downloading
 
 ### Via Developer tools -> Services
 
-1. Search for service "yt_dlp.download"
-2. Enter link to video download and click "call service"
-3. Additional options can be passed into the data in Yaml Mode
-4. See [`yt_dlp/YoutubeDL.py`](yt_dlp/YoutubeDL.py#L183) or `help(yt_dlp.YoutubeDL)` in a Python shell for list of options
+- Search for service "yt_dlp.download"
+- Enter link to video download and click "call service"
+- Additional options can be passed into the data in Yaml Mode
+- See [`yt_dlp/YoutubeDL.py`](yt_dlp/YoutubeDL.py#L183) or `help(yt_dlp.YoutubeDL)` in a Python shell for list of options
 
 ### Via [`yt_dlp-card`](https://github.com/ybk5053/yt_dlp-card)
