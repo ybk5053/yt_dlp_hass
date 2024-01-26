@@ -52,7 +52,7 @@ class YTDLP:
             if k not in ["url", "progress_hooks", "paths"]:
                 ydl_opts[k] = v
         with YoutubeDL(ydl_opts) as ydl:
-            await self.hass.async_add_executor_job(ydl.download, [call.data["url"]])
+            self.hass.async_add_executor_job(ydl.download, [call.data["url"]])
             # ydl.download([call.data["url"]])
 
     def update_state(self):
