@@ -37,7 +37,7 @@ class YTDLP:
         self.downloads = {}
         self.path = path
 
-    def download(self, call: ServiceCall):
+    async def download(self, call: ServiceCall):
         """Download a video."""
         hook = DLP_Hook(self)
         # logger = DLP_Logger(self.downloads, hook.id)
@@ -52,8 +52,8 @@ class YTDLP:
             if k not in ["url", "progress_hooks", "paths"]:
                 ydl_opts[k] = v
         with YoutubeDL(ydl_opts) as ydl:
-            # await self.hass.async_add_executor_job(ydl.download, [call.data["url"]])
-            ydl.download([call.data["url"]])
+            await self.hass.async_add_executor_job(ydl.download, [call.data["url"]])
+            # ydl.download([call.data["url"]])
 
     def update_state(self):
         """Update the state of the entity."""
