@@ -65,5 +65,5 @@ class OptionsFlow(config_entries.OptionsFlow):
             return self.async_create_entry(title="YT_DLP", data=user_input)
 
         return self.async_show_form(
-            step_id="init", data_schema=vol.Schema({vol.Required(CONF_FILE_PATH, default=self.config_entry.data): str}), errors=errors
+            step_id="init", data_schema=vol.Schema({vol.Required(CONF_FILE_PATH, default=self.config_entry.data[CONF_FILE_PATH]): str}), errors=errors
         )
