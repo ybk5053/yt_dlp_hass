@@ -12,5 +12,15 @@
         "title": "Youtube-DLP"
       }
     }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "file_path": "Path to download folder"
+        },
+        "title": "Youtube-DLP"
+      }
+    }
   }
 }
