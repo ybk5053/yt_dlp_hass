@@ -38,3 +38,30 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         return self.async_show_form(
             step_id="user", data_schema=vol.Schema({vol.Required(CONF_FILE_PATH): str}), errors=errors
         )
+
+    @staticmethod
+    @callback
+    def async_get_options_flow(config_entry):
+        return OptionsFlow(config_entry)
+
+class OptionsFlow(config_entries.OptionsFlow):
+    def __init__(self, config_entry: config_entries.ConfigEntry) -> None:
+        """Initialize options flow."""
+        self.config_entry = config_entry
+
+    async def async_step_init(self, user_input=None) -> FlowResult:
+        """Manage the options."""
+        if user_input is not None:
+            try:
+                if not os.path.isdir(user_input[CONF_FILE_PATH]):
+                    os.mkdir(user_input[CONF_FILE_PATH], 0o755)
+            except OSError:
+                errors["base"] = "cannot_create_folder"
+                return self.async_show_form(
+                    step_id="user", data_schema=vol.Schema({vol.Required(CONF_FILE_PATH): str}), errors=errors
+                )
+            return self.async_create_entry(title="YT_DLP", data=user_input)
+
+        return self.async_show_form(
+            step_id="user", data_schema=vol.Schema({vol.Required(CONF_FILE_PATH): str}), errors=errors
+        )
