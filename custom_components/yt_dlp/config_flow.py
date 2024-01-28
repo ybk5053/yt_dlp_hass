@@ -6,6 +6,7 @@ import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.const import CONF_FILE_PATH
 from homeassistant.data_entry_flow import FlowResult
+from homeassistant.core import callback
 
 from .const import DOMAIN
 
