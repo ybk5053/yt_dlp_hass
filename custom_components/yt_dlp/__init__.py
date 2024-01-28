@@ -8,6 +8,7 @@ import voluptuous as vol
 
 from homeassistant.const import CONF_FILE_PATH
 from homeassistant.core import HomeAssistant, ServiceCall
+from homeassistant.config_entries import ConfigEntry
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.typing import ConfigType
 from yt_dlp import YoutubeDL
