@@ -52,6 +52,7 @@ class OptionsFlow(config_entries.OptionsFlow):
 
     async def async_step_init(self, user_input=None) -> FlowResult:
         """Manage the options."""
+        errors = {}
         if user_input is not None:
             try:
                 if not os.path.isdir(user_input[CONF_FILE_PATH]):
