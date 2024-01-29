@@ -122,6 +122,8 @@ class DLP_Hook:
             self.dlp.downloads.pop(self.id, None)
             self.dlp.update_state()
             _LOGGER.error("download error")
+        else:
+            _LOGGER.error("Status: "+ d["status"])
 
 
 async def async_setup_entry(hass: HomeAssistant, config: ConfigType) -> bool:
