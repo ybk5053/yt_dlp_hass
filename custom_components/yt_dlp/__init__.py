@@ -43,6 +43,7 @@ class YTDLP:
         hook = DLP_Hook(self)
         # logger = DLP_Logger(self.downloads, hook.id)
         ydl_opts = {
+            'ignoreerrors': True,
             "progress_hooks": [hook.progress_hook],
             "paths": {
                 "home": self.path,
