@@ -152,6 +152,6 @@ async def update_options_listener(hass, entry):
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Handle removal of an entry."""
     hass.states.async_remove("%s.downloading" % DOMAIN)
-    hass.services.async_remove(DOMAIN. "download")
+    hass.services.async_remove(DOMAIN, "download")
 
     return True
