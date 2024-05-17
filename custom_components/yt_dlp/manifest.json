@@ -6,6 +6,7 @@
     "documentation": "https://github.com/ybk5053/yt_dlp_hass",
     "integration_type": "service",
     "iot_class": "calculated",
+    "single_config_entry": true,
     "issue_tracker": "https://github.com/ybk5053/yt_dlp_hass/issues",
     "requirements": ["yt-dlp==2023.11.16"],
     "version": "0.1.0"

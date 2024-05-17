@@ -6,7 +6,6 @@ import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.const import CONF_FILE_PATH
 from homeassistant.data_entry_flow import FlowResult
-from homeassistant.core import callback
 
 from .const import DOMAIN
 
@@ -18,10 +17,6 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     VERSION = 1
 
     async def async_step_user(self, user_input=None) -> FlowResult:
-        """Abort if already configured."""
-        await self.async_set_unique_id("yt_dlp")
-        self._abort_if_unique_id_configured()
-
         """Handle a flow initialized by the user."""
         errors = {}
         if user_input is not None:
@@ -31,26 +26,20 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             except OSError:
                 errors["base"] = "cannot_create_folder"
                 return self.async_show_form(
-                    step_id="user", data_schema=vol.Schema({vol.Required(CONF_FILE_PATH): str}), errors=errors
+                    step_id="user", 
+                    data_schema=vol.Schema({vol.Required(CONF_FILE_PATH): str}), 
+                    errors=errors
                 )
-            return self.async_create_entry(title="YT_DLP", data=user_input)
+            return self.async_create_entry(title=DOMAIN, data=user_input)
 
         return self.async_show_form(
-            step_id="user", data_schema=vol.Schema({vol.Required(CONF_FILE_PATH): str}), errors=errors
+            step_id="user", 
+            data_schema=vol.Schema({vol.Required(CONF_FILE_PATH): str}), 
+            errors=errors
         )
-
-    @staticmethod
-    @callback
-    def async_get_options_flow(config_entry):
-        return OptionsFlow(config_entry)
-
-class OptionsFlow(config_entries.OptionsFlow):
-    def __init__(self, config_entry: config_entries.ConfigEntry) -> None:
-        """Initialize options flow."""
-        self.config_entry = config_entry
-
-    async def async_step_init(self, user_input=None) -> FlowResult:
-        """Manage the options."""
+    
+    
+    async def async_step_reconfigure(self, user_input=None):
         errors = {}
         if user_input is not None:
             try:
@@ -59,11 +48,14 @@ class OptionsFlow(config_entries.OptionsFlow):
             except OSError:
                 errors["base"] = "cannot_create_folder"
                 return self.async_show_form(
-                    step_id="init", data_schema=vol.Schema({vol.Required(CONF_FILE_PATH): str}), errors=errors
+                    step_id="user", 
+                    data_schema=vol.Schema({vol.Required(CONF_FILE_PATH): str}), 
+                    errors=errors
                 )
-            self.hass.config_entries.async_update_entry(self.config_entry, data=user_input)
-            return self.async_create_entry(title="YT_DLP", data=user_input)
+            return self.async_create_entry(title=DOMAIN, data=user_input)
 
         return self.async_show_form(
-            step_id="init", data_schema=vol.Schema({vol.Required(CONF_FILE_PATH, default=self.config_entry.data[CONF_FILE_PATH]): str}), errors=errors
+            step_id="user",
+            data_schema=vol.Schema({vol.Required(CONF_FILE_PATH): str}),
+            errors=errors
         )

@@ -1,17 +1,29 @@
 {
-    "config": {
-      "abort": {
-        "already_configured": "Only 1 instance of this integration is allowed.",
-        "cannot_create_folder": "Cannot use this path as download folder."
-      },
-      "step": {
-        "user": {
-          "data": {
-            "file_path": "Path to download folder"
-          },
-          "title": "Youtube-DLP"
-        }
+  "error": {
+    "cannot_create_folder": "Cannot create folder"
+  },
+  "config": {
+    "abort": {
+      "already_configured": "Only 1 instance of this integration is allowed.",
+      "reconfigure_successful": "Download folder changed."
+    },
+    "step": {
+      "user": {
+        "data": {
+          "file_path": "Path to download folder"
+        },
+        "title": "Youtube-DLP"
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "file_path": "Path to download folder"
+        },
+        "title": "Youtube-DLP"
       }
     }
   }
-  
+}
