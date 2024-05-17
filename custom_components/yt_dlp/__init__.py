@@ -21,11 +21,8 @@ _LOGGER = logging.getLogger(__name__)
 ansi_escape = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
 
 async def async_setup_entry(hass: HomeAssistant, config: ConfigType) -> bool:
-    """Set up the hass_ytdlp component."""
-    # TODO: Add your setup code here
-    config.async_on_unload(config.add_update_listener(update_options_listener))
-    
-    hass.states.async_set("%s.downloading" % DOMAIN, "0")
+    """Set up the hass_ytdlp component."""    
+    hass.states.async_set("downloader.%s" % DOMAIN, "0")
     if not os.path.isdir(config.data[CONF_FILE_PATH]):
         os.mkdir(config.data[CONF_FILE_PATH], 0o755)
 
