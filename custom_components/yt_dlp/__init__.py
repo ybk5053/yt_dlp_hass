@@ -11,7 +11,6 @@ from homeassistant.core import HomeAssistant, ServiceCall
 from homeassistant.config_entries import ConfigEntry
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.typing import ConfigType
-from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
 from yt_dlp import YoutubeDL
 
@@ -92,11 +91,6 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigType) -> bool:
     )
 
     return True
-
-async def update_options_listener(hass, entry):
-    """Update listener."""
-
-    await hass.config_entries.async_reload(entry.entry_id)
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Handle removal of an entry."""
