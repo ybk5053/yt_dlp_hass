@@ -94,7 +94,7 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigType) -> bool:
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Handle removal of an entry."""
-    hass.states.async_remove("%s.downloading" % DOMAIN)
+    hass.states.async_remove("downloader.%s" % DOMAIN)
     hass.services.async_remove(DOMAIN, "download")
 
     return True
