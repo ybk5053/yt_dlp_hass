@@ -37,10 +37,12 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigType) -> bool:
             try:
                 speed = d["speed"]
             except KeyError as e:
+                speed = 0
                 _LOGGER.warning(e)
             try:
                 downloaded = d["downloaded_bytes"]
             except KeyError as e:
+                downloaded = 0
                 _LOGGER.warning(e)
             try:
                 total = d["total_bytes"]
@@ -50,6 +52,7 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigType) -> bool:
             try:
                 eta = d["eta"]
             except KeyError as e:
+                eta = 0
                 _LOGGER.warning(e)
         if d["status"] == "error":
             attr.pop(filename)
