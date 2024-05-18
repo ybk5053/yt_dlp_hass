@@ -54,16 +54,17 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigType) -> bool:
             except KeyError as e:
                 eta = 0
                 _LOGGER.warning(e)
+                
+            attr[filename] = {
+                "speed": speed,
+                "downloaded": downloaded,
+                "total": total,
+                "eta": eta,
+            }
         if d["status"] == "error":
             attr.pop(filename)
             _LOGGER.error("download error")
-
-        attr[filename] = {
-            "speed": speed,
-            "downloaded": downloaded,
-            "total": total,
-            "eta": eta,
-        }
+            
         hass.states.set("downloader.%s" % DOMAIN, len(attr), attr)
 
     def download(call):
