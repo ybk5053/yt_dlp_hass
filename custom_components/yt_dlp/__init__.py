@@ -78,7 +78,8 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigType) -> bool:
             if k not in ["url", "progress_hooks", "paths"]:
                 ydl_opts[k] = v
         with YoutubeDL(ydl_opts) as ydl:
-            ydl.download([call.data["url"]])
+            hass.async_add_executor_job(ydl.download, [call.data["url"]])
+            # ydl.download([call.data["url"]])
 
     hass.services.async_register( 
         DOMAIN,
