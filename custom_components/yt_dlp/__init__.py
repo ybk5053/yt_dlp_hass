@@ -28,7 +28,7 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigType) -> bool:
 
     def progress_hook(d):
         """Update download progress & Update the state of the entity"""
-        attr = hass.states.get("downloader.%s" % DOMAIN).attributes
+        attr = hass.states.get("downloader.%s" % DOMAIN).attributes.copy()
         filename = d["info_dict"]["filename"].split("/")[-1]
         if d["status"] == "finished":
             attr.pop(filename)
@@ -78,8 +78,7 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigType) -> bool:
             if k not in ["url", "progress_hooks", "paths"]:
                 ydl_opts[k] = v
         with YoutubeDL(ydl_opts) as ydl:
-            hass.async_add_executor_job(ydl.download, [call.data["url"]])
-            # ydl.download([call.data["url"]])
+            ydl.download([call.data["url"]])
 
     hass.services.async_register( 
         DOMAIN,
