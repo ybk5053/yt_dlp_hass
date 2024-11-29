@@ -5,6 +5,7 @@ import re
 import time
 
 import voluptuous as vol
+from urllib.parse import urlparse
 
 from homeassistant.const import CONF_FILE_PATH
 from homeassistant.core import HomeAssistant, ServiceCall
@@ -88,7 +89,7 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigType) -> bool:
         DOMAIN,
         "download",
         download,
-        schema=vol.Schema({vol.Required("url"): vol.Url()}, extra=True),
+        schema=vol.Schema({vol.Required("url"): lambda v: urlparse(v) if urlparse(v).scheme else ((_ for _ in ()).throw(ValueError(vol.error.UrlInvalid("expected a URL"))))}, extra=vol.ALLOW_EXTRA),
     )
 
     return True
