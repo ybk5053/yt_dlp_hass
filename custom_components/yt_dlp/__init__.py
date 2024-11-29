@@ -84,11 +84,12 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigType) -> bool:
         with YoutubeDL(ydl_opts) as ydl:
             ydl.download([call.data["url"]])
 
+    from urllib.parse import urlparse
     hass.services.async_register( 
         DOMAIN,
         "download",
         download,
-        schema=vol.Schema({vol.Required("url"): cv.url}),
+        schema=vol.Schema({vol.Required("url"): lambda v: v if urlparse(v).scheme else ((_ for _ in ()).throw(ValueError(vol.error.UrlInvalid("expected a URL"))))}, extra=vol.ALLOW_EXTRA),
     )
 
     return True
