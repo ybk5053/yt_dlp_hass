@@ -88,7 +88,7 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigType) -> bool:
         DOMAIN,
         "download",
         download,
-        schema=vol.Schema({vol.Required("url"): cv.url}, extra=True),
+        schema=vol.Schema({vol.Required("url"): vol.Url}, extra=True),
     )
 
     return True
