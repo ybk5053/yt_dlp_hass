@@ -89,7 +89,7 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigType) -> bool:
         DOMAIN,
         "download",
         download,
-        schema=vol.Schema({vol.Required("url"): lambda v: urlparse(v) if urlparse(v).scheme else ((_ for _ in ()).throw(ValueError(vol.error.UrlInvalid("expected a URL"))))}, extra=vol.ALLOW_EXTRA),
+        schema=vol.Schema({vol.Required("url"): lambda v: v if urlparse(v).scheme else ((_ for _ in ()).throw(ValueError(vol.error.UrlInvalid("expected a URL"))))}, extra=vol.ALLOW_EXTRA),
     )
 
     return True
