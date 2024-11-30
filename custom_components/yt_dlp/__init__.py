@@ -22,13 +22,13 @@ ansi_escape = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
 
 async def async_setup_entry(hass: HomeAssistant, config: ConfigType) -> bool:
     """Set up the hass_ytdlp component."""    
-    hass.states.async_set("downloader.%s" % DOMAIN, "0")
+    hass.states.async_set(f"{DOMAIN}.downloader", "0")
     if not os.path.isdir(config.data[CONF_FILE_PATH]):
         os.mkdir(config.data[CONF_FILE_PATH], 0o755)
 
     def progress_hook(d):
         """Update download progress & Update the state of the entity"""
-        attr = hass.states.get("downloader.%s" % DOMAIN).attributes.copy()
+        attr = hass.states.get(f"{DOMAIN}.downloader").attributes.copy()
         filename = d["info_dict"]["filename"].split("/")[-1]
         if d["status"] == "finished":
             attr.pop(filename)
@@ -65,7 +65,7 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigType) -> bool:
             attr.pop(filename)
             _LOGGER.error("download error")
             
-        hass.states.set("downloader.%s" % DOMAIN, len(attr), attr)
+        hass.states.set(f"{DOMAIN}.downloader", len(attr), attr)
 
     def download(call):
         """Download a video."""
@@ -96,7 +96,7 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigType) -> bool:
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Handle removal of an entry."""
-    hass.states.async_remove("downloader.%s" % DOMAIN)
+    hass.states.async_remove(f"{DOMAIN}.downloader")
     hass.services.async_remove(DOMAIN, "download")
 
     return True
