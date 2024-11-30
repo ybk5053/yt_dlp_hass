@@ -31,6 +31,7 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigType) -> bool:
         attr = hass.states.get("downloader.%s" % DOMAIN).attributes.copy()
         filename = d["info_dict"]["filename"].split("/")[-1]
         if d["status"] == "finished":
+            hass.states.set("downloader.%s" % DOMAIN, len(attr), attr)
             attr.pop(filename)
             _LOGGER.info("download finished")
         if d["status"] == "downloading":
@@ -62,6 +63,7 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigType) -> bool:
                 "eta": eta,
             }
         if d["status"] == "error":
+            hass.states.set("downloader.%s" % DOMAIN, len(attr), attr)
             attr.pop(filename)
             _LOGGER.error("download error")
             
