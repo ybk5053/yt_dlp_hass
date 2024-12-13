@@ -22,15 +22,16 @@ ansi_escape = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
 
 async def async_setup_entry(hass: HomeAssistant, config: ConfigType) -> bool:
     """Set up the hass_ytdlp component."""    
-    hass.states.async_set("downloader.%s" % DOMAIN, "0")
+    hass.states.async_set(f"{DOMAIN}.downloader", "0")
     if not os.path.isdir(config.data[CONF_FILE_PATH]):
         os.mkdir(config.data[CONF_FILE_PATH], 0o755)
 
     def progress_hook(d):
         """Update download progress & Update the state of the entity"""
-        attr = hass.states.get("downloader.%s" % DOMAIN).attributes.copy()
+        attr = hass.states.get(f"{DOMAIN}.downloader").attributes.copy()
         filename = d["info_dict"]["filename"].split("/")[-1]
         if d["status"] == "finished":
+            hass.states.set(f"{DOMAIN}.downloader", len(attr), attr)
             attr.pop(filename)
             _LOGGER.info("download finished")
         if d["status"] == "downloading":
@@ -62,10 +63,11 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigType) -> bool:
                 "eta": eta,
             }
         if d["status"] == "error":
+            hass.states.set(f"{DOMAIN}.downloader", len(attr), attr)
             attr.pop(filename)
             _LOGGER.error("download error")
             
-        hass.states.set("downloader.%s" % DOMAIN, len(attr), attr)
+        hass.states.set(f"{DOMAIN}.downloader", len(attr), attr)
 
     def download(call):
         """Download a video."""
@@ -84,18 +86,19 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigType) -> bool:
         with YoutubeDL(ydl_opts) as ydl:
             ydl.download([call.data["url"]])
 
+    from urllib.parse import urlparse
     hass.services.async_register( 
         DOMAIN,
         "download",
         download,
-        schema=vol.Schema({vol.Required("url"): cv.url}),
+        schema=vol.Schema({vol.Required("url"): lambda v: v if urlparse(v).scheme else ((_ for _ in ()).throw(ValueError(vol.error.UrlInvalid("expected a URL"))))}, extra=vol.ALLOW_EXTRA),
     )
 
     return True
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Handle removal of an entry."""
-    hass.states.async_remove("downloader.%s" % DOMAIN)
+    hass.states.async_remove(f"{DOMAIN}.downloader")
     hass.services.async_remove(DOMAIN, "download")
 
     return True

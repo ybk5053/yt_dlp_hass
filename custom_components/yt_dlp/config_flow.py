@@ -30,6 +30,8 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     data_schema=vol.Schema({vol.Required(CONF_FILE_PATH): str}), 
                     errors=errors
                 )
+            await self.async_set_unique_id(f"{DOMAIN}.downloader")
+            self._abort_if_unique_id_configured()
             return self.async_create_entry(title=DOMAIN, data=user_input)
 
         return self.async_show_form(
@@ -52,6 +54,8 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     data_schema=vol.Schema({vol.Required(CONF_FILE_PATH): str}), 
                     errors=errors
                 )
+            await self.async_set_unique_id(f"{DOMAIN}.downloader")
+            self._abort_if_unique_id_mismatch()
             return self.async_create_entry(title=DOMAIN, data=user_input)
 
         return self.async_show_form(
