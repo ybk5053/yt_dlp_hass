@@ -33,6 +33,6 @@ Category: Integration
 - Search for service "yt_dlp.download"
 - Enter link to video download and click "call service"
 - Additional options can be passed into the data in Yaml Mode
-- See [`yt_dlp/YoutubeDL.py`](yt_dlp/YoutubeDL.py#L183) or `help(yt_dlp.YoutubeDL)` in a Python shell for list of options
+- See [`yt_dlp/YoutubeDL.py`](https://github.com/yt-dlp/yt-dlp/blob/master/yt_dlp/YoutubeDL.py) or `help(yt_dlp.YoutubeDL)` in a Python shell for list of options
 
 ### Via [`yt_dlp-card`](https://github.com/ybk5053/yt_dlp-card)
